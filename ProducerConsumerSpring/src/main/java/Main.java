@@ -14,19 +14,19 @@ public class Main {
 	public static void main(String[] args) {
 
 		BeanFactory factory = new XmlBeanFactory(new ClassPathResource("beans.xml"));
-//		Recibidor receiver = (Recibidor)factory.getBean("messageReceiver");
+		Recibidor receiver = (Recibidor)factory.getBean("messageReceiver");
 		
 		MessageSender<String, String> sender = (MessageSender<String, String>) factory.getBean("messageSender");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("Nombre", "Bruno");
 		map.put("Apellido", "Strasser");
 		sender.send(map);
-//		receiver.start();
+		receiver.start();
 		try {
-			Recibidor _rec = new Recibidor();
-			_rec.setBeanName("messageReceiver");
-			_rec.setDestinationName("QUEUE_NAME");
-			_rec.start();
+//			Recibidor _rec = new Recibidor();
+//			_rec.setBeanName("messageReceiver");
+//			_rec.setDestinationName("QUEUE_NAME");
+//			_rec.start();
 			Thread.sleep(10000);
 			sender.send(map);
 			Thread.sleep(10000);
