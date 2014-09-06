@@ -13,6 +13,7 @@ public class Main {
 
 		BeanFactory factory = new XmlBeanFactory(new ClassPathResource("beans.xml"));
 		MessageReceiver receiver = (MessageReceiver)factory.getBean("messageReceiver");
+		receiver.start();
 		MessageSender<String, String> sender = (MessageSender<String, String>) factory.getBean("messageSender");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("Nombre", "Bruno");
