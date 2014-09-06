@@ -16,37 +16,13 @@ public class Recibidor extends DefaultMessageListenerContainer {
 		super();
 		this.setMessageListener(new escuchador());
 	}
-	
-		@Override
-	protected Message receiveMessage(MessageConsumer consumer)
-			throws JMSException {
-		Message msg =consumer.receive();
-		System.out.print(msg);
-		System.out.print(msg.getStringProperty("Nombre"));
-		return super.receiveMessage(consumer);
-	}
-
-	@Override
-	protected void messageReceived(Object invoker, Session session) {
-		System.out.println("Llego un mensaje");
-		SchedulingAwareRunnable _async = ((SchedulingAwareRunnable)invoker);
-		try {
-			session.getMessageListener();
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
- 
 }
 
 class escuchador implements MessageListener{
 
 	@Override
 	public void onMessage(Message message) {
-		System.out.println("Esta es la posta");
-		
+		System.out.println("Esta es la posta");	
 	}
 	
 }
