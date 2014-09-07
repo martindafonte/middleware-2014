@@ -2,10 +2,8 @@ package org.pruebamagica;
 
 import javax.jms.*;
 
-public class InputGateway {
+public interface InputGateway {
 
 	
-	public void process(Message msg){
-		
-	}
+	public void process(Message msg);
 }
