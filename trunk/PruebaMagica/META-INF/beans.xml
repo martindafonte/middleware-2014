@@ -15,6 +15,8 @@
 	http://www.springframework.org/schema/jms/spring-jms.xsd"
 	xmlns:tx="http://www.springframework.org/schema/tx" >
 
+
+
 	<!-- Activemq connection factory -->
 	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
 		<constructor-arg index="0" value="tcp://localhost:61616" />
@@ -47,10 +49,8 @@
 			method="onMessage" />
 	</jms:listener-container>
 
-	<int:payload-type-router input-channel="routingChannel">
-		<int:mapping type="java.lang.String" channel="stringChannel" />
-		<int:mapping type="java.lang.Integer" channel="integerChannel" />
-	</int:payload-type-router>
+	
+	<bean id="transaction" class="org.pruebamagica.Transaction"/>
 
 	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
