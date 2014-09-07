@@ -22,6 +22,20 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ActiveMQ"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/.m2/repository/org/springframework/spring-jms/4.0.6.RELEASE/spring-jms-4.0.6.RELEASE.jar" sourcepath="C:/Users/Martin/.m2/repository/org/springframework/spring-jms/4.0.6.RELEASE/spring-jms-4.0.6.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework"/>
+			<attribute name="maven.artifactId" value="spring-jms"/>
+			<attribute name="maven.version" value="4.0.6.RELEASE"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
