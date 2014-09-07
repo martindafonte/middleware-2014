@@ -12,7 +12,8 @@ public class Main {
 
 		BeanFactory factory = new XmlBeanFactory(new ClassPathResource("beans.xml"));
 		MessageReceiver receiver = (MessageReceiver)factory.getBean("messageReceiver");
-		receiver.start();				
+		receiver.start();
+				
 	}
 
 }
