@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		BeanFactory factory = new XmlBeanFactory(new ClassPathResource("META-INF/beans.xml"));
+		BeanFactory factory = new XmlBeanFactory(new ClassPathResource("META-INF/initial.xml"));
 		MessageReceiver receiver = (MessageReceiver)factory.getBean("messageReceiver");
 		receiver.start();
 				
