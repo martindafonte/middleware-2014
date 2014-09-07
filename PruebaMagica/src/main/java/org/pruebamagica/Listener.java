@@ -1,8 +1,12 @@
 package org.pruebamagica;
+import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.Session;
 
-public class Listener implements MessageListener {
+import org.springframework.jms.listener.SessionAwareMessageListener;
+
+public class Listener implements SessionAwareMessageListener {
 	
 	private InputGateway gateway;
 	
@@ -10,7 +14,11 @@ public class Listener implements MessageListener {
 		this.gateway = gateway;
 	}
 	
-	public void onMessage(Message message) {
+//	public void onMessage(Message message) {
+//		System.out.println("Esta es la posta");
+//	}
+
+	public void onMessage(Message message, Session session) throws JMSException {
 		System.out.println("Esta es la posta");
 	}
 
