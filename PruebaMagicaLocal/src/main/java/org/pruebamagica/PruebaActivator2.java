@@ -6,7 +6,7 @@ public class PruebaActivator2 {
 
 	
 	public void process(String m){
-		System.out.println("ACTIVATOR 2: "+ m);
+		System.out.println("A");
 	}
 
 }
