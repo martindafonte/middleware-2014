@@ -77,7 +77,7 @@ public class Main {
 
 					session.close();
 					connection.close();
-
+					Thread.sleep(10000);
 				}
 
 			} catch (Exception e) {
