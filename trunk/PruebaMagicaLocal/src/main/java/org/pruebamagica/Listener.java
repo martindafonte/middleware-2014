@@ -12,11 +12,8 @@ public class Listener implements MessageListener {
 	
 	
 	public void onMessage(Message message) {
-//		System.out.println("Listener onMessage");
 		ApplicationContext context =  new ClassPathXmlApplicationContext("META-INF/config.xml");
-//		BeanFactory factory = new XmlBeanFactory(new ClassPathResource("META-INF/config.xml"));
 		InputGateway gateway = context.getBean("inputGateway", InputGateway.class);
-//		InputGateway gateway = (InputGateway)factory.getBean("inputGateway");
 		gateway.process("hola");
 	}
 
