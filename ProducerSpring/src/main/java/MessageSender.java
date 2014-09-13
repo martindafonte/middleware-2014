@@ -12,5 +12,9 @@ public class MessageSender<T,H> {
     public void send(Map<T,H> map) {
         jmsTemplate.convertAndSend(map);
     }
+    
+    public void send(Object o) {
+        jmsTemplate.convertAndSend(o);
+    }
  
 }
