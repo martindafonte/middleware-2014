@@ -60,7 +60,7 @@ public class Main {
 					producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 					t = new Transaction();
-					t.setId(i++);
+					t.setId(i);
 					t.setDate((new Date()).toString());
 					t.setTime((new Date()).toString());
 					t.setType(i % 4 == 0 ? "RET" : "DEP");
@@ -69,6 +69,7 @@ public class Main {
 					t.setCardNumber("1111111");
 					t.setCardType("DEB");
 					t.setCurrency("SI");
+//					System.out.println("i: "+ i);
 					t.setDeviceType(i % 4 == 0 ? "POS" : "ATM");
 					t.setAmount(2000.0);
 
@@ -77,7 +78,9 @@ public class Main {
 
 					session.close();
 					connection.close();
-					Thread.sleep(10000);
+					
+					
+					Thread.sleep(1000);
 				}
 
 			} catch (Exception e) {
