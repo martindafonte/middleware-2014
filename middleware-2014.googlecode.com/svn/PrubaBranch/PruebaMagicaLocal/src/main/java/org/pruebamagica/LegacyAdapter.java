@@ -1,11 +1,13 @@
 package org.pruebamagica;
 
+import org.sender.Transaction;
+
 public class LegacyAdapter {
 
 	
 	
-	public void process(){
-		System.out.println("LLEGO AL LEGACY");
+	public void process(Transaction m){
+			System.out.println("LLEGO AL LEGACY: " + m.getDeviceType().equals("ATM"));
 	}
 	
 }
