@@ -13,6 +13,8 @@
    http://www.springframework.org/schema/integration/stream
    http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
+	
+
 <!-- 	<bean id="webServiceAdapter" class="org.pruebamagica.WebServiceAdapter" /> -->
 <!-- 	<bean id="legacyAdapter" class="org.pruebamagica.LegacyAdapter" /> -->
 <!-- 	<bean id="transaction" class="org.pruebamagica.Transaction" /> -->
@@ -44,8 +46,8 @@
 <!-- 			<int:header name="type" expression="@transaction.deviceType" /> -->
 <!-- 		</int:header-enricher> -->
 		<int:recipient-list-router apply-sequence="true" input-channel="prueba">
-			<int:recipient channel="webServiceChannel" />
-			<int:recipient channel="legacyChannel" />
+			<int:recipient channel="webServiceChannel" selector-expression="payload.deviceType.equals('POS')"/>
+			<int:recipient channel="legacyChannel" selector-expression="payload.deviceType.equals('ATM')"/>
 		</int:recipient-list-router>
 <!-- 	</int:chain> -->
 	
