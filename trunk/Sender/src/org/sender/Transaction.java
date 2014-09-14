@@ -1,8 +1,16 @@
 package org.sender;
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 
+@XmlRootElement(name="Transaction")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType
 public class Transaction implements Serializable{
 
 
@@ -10,16 +18,27 @@ public class Transaction implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@XmlElement
 	private Long id;
+	@XmlElement
 	private String date;
+	@XmlElement
 	private String time;
+	@XmlElement
 	private String type;
+	@XmlElement
 	private String code;
+	@XmlElement
 	private String commerceName;
+	@XmlElement
 	private String cardNumber;
+	@XmlElement
 	private String cardType;
+	@XmlElement
 	private String currency;
+	@XmlElement
 	private String deviceType;
+	@XmlElement
 	private Double amount;
 
 	
