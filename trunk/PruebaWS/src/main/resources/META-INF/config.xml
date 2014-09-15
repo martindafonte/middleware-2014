@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-router="http://www.springframework.org/schema/integration"
 	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
@@ -27,17 +28,17 @@
 		</property>
 	</bean>
 
-<!-- 	<int:channel id="prueba" /> -->
+	<int:channel id="prueba" />
 	<int:channel id="pruebaWS" />
 
 
 	<int:gateway id="inputGateway" service-interface="org.pruebaws.InputGateway">
-		<int:method name="process" request-channel="pruebaWS" />
+		<int:method name="process" request-channel="prueba" />
 	</int:gateway>
 
-<!-- 	<int:transformer id="requestConverter" ref="xmlRequestBuilder" -->
-<!-- 		input-channel="prueba" output-channel="pruebaWS" method="transform"> -->
-<!-- 	</int:transformer> -->
+	<int:transformer id="requestConverter" ref="xmlRequestBuilder"
+		input-channel="prueba" output-channel="pruebaWS" method="transform">
+	</int:transformer>
 
 	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
 		<property name="messageFactory">
@@ -48,12 +49,10 @@
 
 	<int-ws:outbound-gateway id="wsGateway"
 		request-channel="pruebaWS" reply-channel="loggingChannel"
-		uri="http://localhost:8080/BancoWS/services/Services" 
-		marshaller="jaxbMarshaller"
-		unmarshaller="jaxbMarshaller" 
+		uri="http://localhost:8080/BancoWS/services/Services"
 		message-factory="messageFactory" />
 
-	<int-stream:stdout-channel-adapter id="loggingChannel" />
+	
 
 
 	<!-- <oxm:jaxb2-marshaller id="transactionMarshaller"> -->
