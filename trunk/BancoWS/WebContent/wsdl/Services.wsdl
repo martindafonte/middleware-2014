@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://services.banco.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://services.banco.org" xmlns:intf="http://services.banco.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://services.banco.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="sendTransaction">
+    <complexType>
+     <sequence>
+      <element name="t" type="impl:Transaction"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Transaction">
+    <sequence>
+     <element name="amount" nillable="true" type="xsd:double"/>
+     <element name="cardNumber" nillable="true" type="xsd:string"/>
+     <element name="cardType" nillable="true" type="xsd:string"/>
+     <element name="code" nillable="true" type="xsd:string"/>
+     <element name="commerceName" nillable="true" type="xsd:string"/>
+     <element name="currency" nillable="true" type="xsd:string"/>
+     <element name="date" nillable="true" type="xsd:string"/>
+     <element name="deviceType" nillable="true" type="xsd:string"/>
+     <element name="id" nillable="true" type="xsd:long"/>
+     <element name="time" nillable="true" type="xsd:string"/>
+     <element name="type" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="sendTransactionResponse">
+    <complexType/>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="sendTransactionRequest">
+
+      <wsdl:part element="impl:sendTransaction" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sendTransactionResponse">
+
+      <wsdl:part element="impl:sendTransactionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Services">
+
+      <wsdl:operation name="sendTransaction">
+
+         <wsdl:input message="impl:sendTransactionRequest" name="sendTransactionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:sendTransactionResponse" name="sendTransactionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ServicesSoapBinding" type="impl:Services">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="sendTransaction">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="sendTransactionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="sendTransactionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ServicesService">
+
+      <wsdl:port binding="impl:ServicesSoapBinding" name="Services">
+
+         <wsdlsoap:address location="http://localhost:8080/BancoWS/services/Services"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
