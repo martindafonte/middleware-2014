@@ -1,8 +1,16 @@
 package org.pruebamagica;
 
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
+
+
+
 
 
 @SuppressWarnings("deprecation")
@@ -15,6 +23,8 @@ public class Main {
 		MessageReceiver receiver = (MessageReceiver)factory.getBean("messageReceiver");
 //		MessageReceiver receiver = context.getBean("messageReceiver", MessageReceiver.class);
 		receiver.start();
+		
+		
 				
 	}
 
