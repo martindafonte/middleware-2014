@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-router="http://www.springframework.org/schema/integration"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/integration 
+	http://www.springframework.org/schema/integration/spring-integration.xsd  
+	http://www.springframework.org/schema/integration/twitter 
+	http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd  
+	http://www.springframework.org/schema/integration/stream 
+	http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd 
+	http://www.springframework.org/schema/oxm 
+	http://www.springframework.org/schema/oxm/spring-oxm-4.1.xsd 
+	http://www.springframework.org/schema/integration/ws 
+	http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
+
+	<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>org.sender.Transaction</value>
+			</list>
+		</property>
+	</bean>
+
+<!-- 	<int:channel id="prueba" /> -->
+	<int:channel id="pruebaWS" />
+
+
+	<int:gateway id="inputGateway" service-interface="org.pruebaws.InputGateway">
+		<int:method name="process" request-channel="pruebaWS" />
+	</int:gateway>
+
+<!-- 	<int:transformer id="requestConverter" ref="xmlRequestBuilder" -->
+<!-- 		input-channel="prueba" output-channel="pruebaWS" method="transform"> -->
+<!-- 	</int:transformer> -->
+
+	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
+		<property name="messageFactory">
+			<bean
+				class="com.sun.xml.messaging.saaj.soap.ver1_1.SOAPMessageFactory1_1Impl" />
+		</property>
+	</bean>
+
+	<int-ws:outbound-gateway id="wsGateway"
+		request-channel="pruebaWS" reply-channel="loggingChannel"
+		uri="http://localhost:8080/BancoWS/services/Services" 
+		marshaller="jaxbMarshaller"
+		unmarshaller="jaxbMarshaller" 
+		message-factory="messageFactory" />
+
+	<int-stream:stdout-channel-adapter id="loggingChannel" />
+
+
+	<!-- <oxm:jaxb2-marshaller id="transactionMarshaller"> -->
+	<!-- <oxm:class-to-be-bound name="org.sender.Transaction" /> -->
+	<!-- </oxm:jaxb2-marshaller> -->
+
+
+	<bean id="xmlRequestBuilder" class="org.pruebaws.XMLRequestBuilder" />
+
+
+
+
+
+
+
+</beans>
