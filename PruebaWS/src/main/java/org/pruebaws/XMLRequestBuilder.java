@@ -14,10 +14,7 @@ public class XMLRequestBuilder {
 	
 	public String transform(Transaction t){
 		
-		String ret = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"http://services.banco.org\">"
-					+ "<soapenv:Header/>"
-					+ "<soapenv:Body>"
-					+"<ser:sendTransaction>"
+		String ret = "<ser:sendTransaction xmlns:ser=\"http://services.banco.org\">"
 		         	+ "<ser:t>"
 		            + "<ser:amount>"+ t.getAmount() +"</ser:amount>"
 		            + "<ser:cardNumber>"+ t.getCardNumber() +"</ser:cardNumber>"
@@ -31,9 +28,7 @@ public class XMLRequestBuilder {
 		            + "<ser:time>"+ t.getTime() +"</ser:time>"
 		            + "<ser:type>"+ t.getType() +"</ser:type>"
 		         + "</ser:t>"
-		      + "</ser:sendTransaction>"
-		   + "</soapenv:Body>"
-		+ "</soapenv:Envelope>";
+		      + "</ser:sendTransaction>";
 		
 		return ret;
 	}
