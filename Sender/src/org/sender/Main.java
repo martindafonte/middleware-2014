@@ -59,21 +59,21 @@ public class Main {
 							.createProducer(destination);
 					producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-					t = new Transaction();
-					t.setId(i);
-					t.setDate((new Date()).toString());
-					t.setTime((new Date()).toString());
-					t.setType(i % 4 == 0 ? "RET" : "DEP");
-					t.setCode("codigo");
-					t.setCommerceName("comercio");
-					t.setCardNumber("1111111");
-					t.setCardType("DEB");
-					t.setCurrency("SI");
-//					System.out.println("i: "+ i);
-					t.setDeviceType(i % 4 == 0 ? "POS" : "ATM");
-					t.setAmount(2000.0);
+//					t = new Transaction();
+//					t.setId(i);
+//					t.setDate(new Date());
+//					//t.setTime(new Date());
+//					t.setType(i % 4 == 0 ? "R" : "D");
+//					t.setCode("codigo");
+//					t.setCommerceName("comercio");
+//					t.setCardNumber("1111111");
+//					t.setCardType("D");
+//					t.setCurrency("SI");
+////					System.out.println("i: "+ i);
+//					t.setDeviceType(i % 4 == 0 ? "POS" : "ATM");
+//					t.setAmount(2000.0);
 
-					ObjectMessage message = session.createObjectMessage(t);
+					TextMessage message = session.createTextMessage("Lalalala");
 					producer.send(message);
 
 					session.close();
