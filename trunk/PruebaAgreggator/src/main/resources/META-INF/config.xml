@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-router="http://www.springframework.org/schema/integration"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/integration 
+	http://www.springframework.org/schema/integration/spring-integration.xsd  
+	http://www.springframework.org/schema/integration/twitter 
+	http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd  
+	http://www.springframework.org/schema/integration/stream 
+	http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd 
+	http://www.springframework.org/schema/oxm 
+	http://www.springframework.org/schema/oxm/spring-oxm-4.1.xsd 
+	http://www.springframework.org/schema/integration/ws 
+	http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
+
+	<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>org.sender.Transaction</value>
+			</list>
+		</property>
+	</bean>
+
+	<int:channel id="prueba" />
+	<int:channel id="pruebaAgreggator" />
+
+	<int:gateway id="inputGateway" service-interface="org.pruebaAgreggator.InputGateway">
+		<int:method name="process" request-channel="prueba" />
+	</int:gateway>
+	
+	<bean id="agreggatorBean" class="org.pruebaAgreggator.Agreggator"/>
+	<bean id="agreggatorStrategy" class="org.pruebaAgreggator.AgreggatorReleaseStrategy"/>
+	
+	<bean id="messageStore" class="org.springframework.integration.store.SimpleMessageStore" />
+	
+	
+	<int:aggregator id="agreggator" 
+					input-channel="prueba"
+					ref="agreggatorBean" method="process"
+					release-strategy-expression="#this.size() > 9"
+					correlation-strategy-expression="payload.deviceType"
+					message-store="messageStore"
+					output-channel="pruebaAgreggator" 
+					expire-groups-upon-completion="true"/>
+	
+	<bean id="outboundBean" class="org.pruebaAgreggator.OutboundAgreggator"/>
+	
+	<int:outbound-channel-adapter id="outbound" 
+						ref="outboundBean" method="process"
+						channel="pruebaAgreggator" />
+
+</beans>
