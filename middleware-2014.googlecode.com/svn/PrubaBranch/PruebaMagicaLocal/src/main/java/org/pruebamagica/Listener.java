@@ -19,11 +19,12 @@ public class Listener implements MessageListener {
 	
 	public void onMessage(Message message) {
 		try {
-			ObjectMessage om = (ObjectMessage) message;
-			Object  t = om.getObject();
-			Transaction t2 = (Transaction)t;
-			gateway.process(t2);
-		} catch (JMSException e) {
+//			ObjectMessage om = (ObjectMessage) message;
+//			Object  t = om.getObject();
+			//Transaction t2 = (Transaction)t;
+			gateway.process(null);
+		} catch (Exception e) {
+		
 			e.printStackTrace();
 		}
 	}
