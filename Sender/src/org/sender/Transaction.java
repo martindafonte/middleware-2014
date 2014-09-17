@@ -21,7 +21,7 @@ public class Transaction implements Serializable{
 	@XmlElement
 	private Long id;
 	@XmlElement
-	private java.util.Date date;
+	private String date;
 	@XmlElement
 	private String time;
 	@XmlElement
@@ -48,10 +48,10 @@ public class Transaction implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public java.util.Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(java.util.Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getTime() {

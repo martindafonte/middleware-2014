@@ -1,8 +1,11 @@
 package org.sender;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
@@ -59,22 +62,40 @@ public class Main {
 							.createProducer(destination);
 					producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-//					t = new Transaction();
-//					t.setId(i);
-//					t.setDate(new Date());
-//					//t.setTime(new Date());
-//					t.setType(i % 4 == 0 ? "R" : "D");
-//					t.setCode("codigo");
-//					t.setCommerceName("comercio");
-//					t.setCardNumber("1111111");
-//					t.setCardType("D");
-//					t.setCurrency("SI");
-////					System.out.println("i: "+ i);
-//					t.setDeviceType(i % 4 == 0 ? "POS" : "ATM");
-//					t.setAmount(2000.0);
+					
+					/****Para romperlo y probar el log ****/
 
-					TextMessage message = session.createTextMessage("Lalalala");
+//					TextMessage message = session.createTextMessage("Lalalala");
+//					producer.send(message);
+//					
+					/***** funciona bien ******/
+					
+					
+					t = new Transaction();
+					t.setId(i);
+					
+					
+					java.util.Date date = new java.util.Date(); 
+					java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");
+					String fecha = sdf.format(date);
+					
+			    	t.setDate(fecha);
+					//t.setTime(new Date());
+					t.setType(i % 4 == 0 ? "R" : "D");
+					t.setCode("codigo");
+					t.setCommerceName("comercio");
+					t.setCardNumber("1111111");
+					t.setCardType("D");
+					t.setCurrency("SI");
+//					System.out.println("i: "+ i);
+					t.setDeviceType(i % 4 == 0 ? "POS" : "ATM");
+					t.setAmount(2000.0);
+					
+					ObjectMessage message = session.createObjectMessage(t);
 					producer.send(message);
+					
+					/****************/
+					
 
 					session.close();
 					connection.close();
