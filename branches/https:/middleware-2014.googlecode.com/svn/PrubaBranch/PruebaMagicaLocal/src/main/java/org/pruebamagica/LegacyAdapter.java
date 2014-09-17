@@ -1,5 +1,9 @@
 package org.pruebamagica;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.sender.Transaction;
@@ -47,7 +51,18 @@ public class LegacyAdapter {
 //	        }
 	        
 	    	Long id = m.getId();
-	    	java.util.Date date = m.getDate();
+	    	String date = m.getDate();
+	    		    	
+	    	java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");
+	    	java.util.Date newDate = sdf.parse(date);
+//	    	
+	    	java.sql.Date sqlDate = new java.sql.Date(newDate.getTime());
+
+	    	
+	    	System.out.println(date);
+	    	System.out.println(newDate);
+	    	    	
+	    	
 	    	//String time = m.getTime();
 	    	String type = m.getType();
 	    	String code = m.getCode();
@@ -59,7 +74,7 @@ public class LegacyAdapter {
 	    	
 	        	
 	    	String query="insert into transactions (id,datetime,transaction_type,commerce_code,commerce_name,card_number,card_type,currency_code,amount) values ("
-	    				  + "'"+id+"'"+","+"'"+date+ "'"+","+"'"+type+"'"+","+"'"+code+"'"+","+"'"+commerceName+"'"+","+"'"+cardNumber+"'"+","+"'"+cardType+"'"+","+"'"+currency+"'"+","+"'"+amount+"'"+")";
+	    				  + "'"+id+"'"+","+"'"+sqlDate+"'"+","+"'"+type+"'"+","+"'"+code+"'"+","+"'"+commerceName+"'"+","+"'"+cardNumber+"'"+","+"'"+cardType+"'"+","+"'"+currency+"'"+","+"'"+amount+"'"+")";
 	    			
 	    	 System.out.println(query);		
 	        jdbcTemplate.update(query);	

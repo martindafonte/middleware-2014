@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-router="http://www.springframework.org/schema/integration/"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/integration
+   http://www.springframework.org/schema/integration/spring-integration.xsd
+   http://www.springframework.org/schema/integration/twitter
+   http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+   http://www.springframework.org/schema/integration/stream
+   http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+  http://www.springframework.org/schema/jdbc 
+  http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+  http://www.springframework.org/schema/integration/jdbc 
+ http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+ http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<int:channel id="prueba" />
+	<!-- <int:channel id="prueba2"/> -->
+	<int:channel id="legacyChannel" />
+	<!-- <int:channel id="webServiceChannel" datatype="POS"/> -->
+	<int:channel id="webServiceChannel" />
+	<int:channel id="errorChannel" /> 
+	
+
+	<int:gateway id="inputGateway"  error-channel="errorChannel" service-interface="org.pruebamagica.InputGateway">
+		<int:method name="process" request-channel="prueba"/>
+	</int:gateway>
+
+	<int:service-activator input-channel="errorChannel" ref="orderErrorHandler" method="handleFailedOrder"/> 
+ 
+
+	<bean id="orderErrorHandler" class="org.pruebamagica.ErrorHandler"/>
+	
+	<int:recipient-list-router apply-sequence="true"
+		input-channel="prueba">
+		<int:recipient channel="webServiceChannel"
+			selector-expression="payload.deviceType.equals('POS')" />
+		<int:recipient channel="legacyChannel"
+			selector-expression="payload.deviceType.equals('ATM')" />
+	</int:recipient-list-router>
+	<!-- </int:chain> -->
+
+	<bean id="webServiceAdapter" class="org.pruebamagica.WebServiceAdapter" />
+	<bean id="legacyAdapter" class="org.pruebamagica.LegacyAdapter" />
+
+	<int:outbound-channel-adapter ref="legacyAdapter"
+	channel="legacyChannel" method="process"/>
+		
+	 
+	<int:outbound-channel-adapter ref="webServiceAdapter"
+		channel="webServiceChannel" method="process"  />
+
+</beans>
