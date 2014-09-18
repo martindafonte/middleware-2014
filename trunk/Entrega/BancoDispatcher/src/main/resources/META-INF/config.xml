@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:int-router="http://www.springframework.org/schema/integration/"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/integration
+   http://www.springframework.org/schema/integration/spring-integration.xsd
+   http://www.springframework.org/schema/integration/twitter
+   http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+   http://www.springframework.org/schema/integration/stream
+   http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+  http://www.springframework.org/schema/jdbc 
+  http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+  http://www.springframework.org/schema/integration/jdbc 
+ http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+ http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/integration/ws
+ http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
+
+
+	<int:channel id="prueba" />
+	<!-- <int:channel id="prueba2"/> -->
+	<int:channel id="legacyChannel" />
+	<!-- <int:channel id="webServiceChannel" datatype="POS"/> -->
+	<int:channel id="webServiceChannel" />
+	<int:channel id="errorChannel" />
+
+
+	<int:gateway id="inputGateway" error-channel="errorChannel"
+		service-interface="org.bancodispatcher.InputGateway">
+		<int:method name="process" request-channel="prueba" />
+	</int:gateway>
+
+	<int:service-activator input-channel="errorChannel"
+		ref="orderErrorHandler" method="handleFailedOrder" />
+
+
+	<bean id="orderErrorHandler" class="org.bancodispatcher.ErrorHandler" />
+
+	<int:recipient-list-router apply-sequence="true"
+		input-channel="prueba">
+		<int:recipient channel="webServiceChannel"
+			selector-expression="payload.deviceType.equals('POS')" />
+		<int:recipient channel="legacyChannel"
+			selector-expression="payload.deviceType.equals('ATM')" />
+	</int:recipient-list-router>
+	<!-- </int:chain> -->
+
+<!-- 	<bean id="webServiceAdapter" class="org.bancodispatcher.WebServiceAdapter" /> -->
+	<bean id="legacyAdapter" class="org.bancodispatcher.LegacyAdapter" />
+
+	<int:outbound-channel-adapter ref="legacyAdapter"
+		channel="legacyChannel" method="process" />
+
+
+<!-- 	<int:outbound-channel-adapter ref="webServiceAdapter" -->
+<!-- 		channel="webServiceChannel" method="process" /> -->
+
+
+	<bean id="agreggatorBean" class="org.bancodispatcher.Agreggator" />
+	<bean id="messageStore"
+		class="org.springframework.integration.store.SimpleMessageStore" />
+	<bean id="xmlRequestBuilder" class="org.bancodispatcher.XMLRequestBuilder" />
+	<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>org.sender.Transaction</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<int:channel id="pruebaAgreggator" />
+	<int:channel id="pruebaWS" />
+
+	<int:aggregator id="agreggator" input-channel="webServiceChannel"
+		ref="agreggatorBean" method="process" release-strategy-expression="#this.size() > 9"
+		correlation-strategy-expression="payload.deviceType" message-store="messageStore"
+		output-channel="pruebaAgreggator" expire-groups-upon-completion="true" />
+
+
+	<int:transformer id="requestConverter" ref="xmlRequestBuilder"
+		input-channel="pruebaAgreggator" output-channel="pruebaWS" method="">
+	</int:transformer>
+
+	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
+		<property name="messageFactory">
+			<bean
+				class="com.sun.xml.messaging.saaj.soap.ver1_1.SOAPMessageFactory1_1Impl" />
+		</property>
+	</bean>
+
+	<int-ws:outbound-gateway id="wsGateway"
+		request-channel="pruebaWS" reply-channel="log"
+		uri="http://localhost:8080/BancoWS/Service" message-factory="messageFactory" />
+		
+	<int-stream:stdout-channel-adapter id="log" />
+
+</beans>
