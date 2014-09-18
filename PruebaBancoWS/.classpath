@@ -6,21 +6,35 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Tomcat v8.0">
-		<attributes>
-			<attribute name="owner.project.facets" value="jst.web"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jaxws"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/FastInfoset.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/gmbal-api-only.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/ha-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/javax.annotation-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/javax.xml.soap-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/jaxb-core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/jaxb-jxc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/jaxb-xjc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/jaxws-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/jaxws-rt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/jaxws-tools.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/jsr181-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/management-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/mimepull.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/policy.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/resolver.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/saaj-impl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/stax2-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/stax-ex.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/streambuffer.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sofia Maiolo/Desktop/jaxws-ri-2.2.8/jaxws-ri/lib/woodstox-core-asl.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
