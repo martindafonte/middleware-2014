@@ -77,10 +77,12 @@ public class Main {
 					
 					java.util.Date date = new java.util.Date(); 
 					java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");
+					java.text.SimpleDateFormat stf=new java.text.SimpleDateFormat("HHmmss");
 					String fecha = sdf.format(date);
+					String time = stf.format(date);
 					
 			    	t.setDate(fecha);
-					//t.setTime(new Date());
+					t.setTime(time);
 					t.setType(i % 4 == 0 ? "R" : "D");
 					t.setCode("codigo");
 					t.setCommerceName("comercio");
