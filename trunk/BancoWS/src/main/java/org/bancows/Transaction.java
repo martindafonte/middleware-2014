@@ -19,27 +19,27 @@ public class Transaction implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@XmlElement
+	@XmlElement(required=true)
 	private Long id;
-
-	private java.util.Date date;
-	@XmlElement
+	@XmlElement(required=true)
+	private String date;
+	@XmlElement(required=true)
 	private String time;
-	@XmlElement
+	@XmlElement(required=true)
 	private String type;
-	@XmlElement
+	@XmlElement(required=true)
 	private String code;
-	@XmlElement
+	@XmlElement(required=true)
 	private String commerceName;
-	@XmlElement
+	@XmlElement(required=true)
 	private String cardNumber;
-	@XmlElement
+	@XmlElement(required=true)
 	private String cardType;
-	@XmlElement
+	@XmlElement(required=true)
 	private String currency;
-	@XmlElement
+	@XmlElement(required=true)
 	private String deviceType;
-	@XmlElement
+	@XmlElement(required=true)
 	private Double amount;
 
 	
@@ -49,10 +49,10 @@ public class Transaction implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public java.util.Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(java.util.Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getTime() {

@@ -23,7 +23,7 @@ public class Service {
 	 * @param l
 	 */
 	@WebMethod(operationName = "receive")
-	public void receive(@WebParam(name = "transactions") List<Transaction> l) {
+	public void receive(@WebParam(name = "transaction") List<Transaction> l) {
 		System.out.println("#############################");
 		for(Transaction t : l){
 			System.out.println( t.toString() );
