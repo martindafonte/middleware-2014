@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<title>ProducerWeb</title>
+</head>
+<body>
+
+	<h:form>
+
+		<h:panelGrid columns="2">
+
+			<h:outputLabel>Id</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.id}" />
+
+			<h:outputLabel>Date</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.date}" />
+
+			<h:outputLabel>Time</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.time}" />
+
+			<h:outputLabel>Type</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.type}" />
+
+			<h:outputLabel>Code</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.code}" />
+
+			<h:outputLabel>Commerce Name</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.commerceName}" />
+
+			<h:outputLabel>Card Type</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.cardType}" />
+
+			<h:outputLabel>Currency</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.currency}" />
+
+			<h:outputLabel>Device Type</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.deviceType}" />
+
+			<h:outputLabel>Amount</h:outputLabel>
+			<h:inputText value="#{transactionMB.input.amount}" />
+
+		</h:panelGrid>
+		
+		<h:panelGroup styleClass="">
+			<h:commandButton value="enviar" action="#{transactionMB.sendTransaction()}" />
+		</h:panelGroup>
+
+	</h:form>
+
+</body>
+</html>
