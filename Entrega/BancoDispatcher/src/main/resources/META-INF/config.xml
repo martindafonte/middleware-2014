@@ -25,45 +25,15 @@
  http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
 
 
-	<int:channel id="prueba" />
-	<!-- <int:channel id="prueba2"/> -->
+	<int:channel id="inputRouter" />
 	<int:channel id="legacyChannel" />
-	<!-- <int:channel id="webServiceChannel" datatype="POS"/> -->
-	<int:channel id="webServiceChannel" />
 	<int:channel id="errorChannel" />
+	<int:channel id="inputAgreggator" />
+	<int:channel id="inputTransformer" />
+	<int:channel id="inputWebService" />
 
-
-	<int:gateway id="inputGateway" error-channel="errorChannel"
-		service-interface="org.bancodispatcher.InputGateway">
-		<int:method name="process" request-channel="prueba" />
-	</int:gateway>
-
-	<int:service-activator input-channel="errorChannel"
-		ref="orderErrorHandler" method="handleFailedOrder" />
-
-
-	<bean id="orderErrorHandler" class="org.bancodispatcher.ErrorHandler" />
-
-	<int:recipient-list-router apply-sequence="true"
-		input-channel="prueba">
-		<int:recipient channel="webServiceChannel"
-			selector-expression="payload.deviceType.equals('POS')" />
-		<int:recipient channel="legacyChannel"
-			selector-expression="payload.deviceType.equals('ATM')" />
-	</int:recipient-list-router>
-	<!-- </int:chain> -->
-
-<!-- 	<bean id="webServiceAdapter" class="org.bancodispatcher.WebServiceAdapter" /> -->
+	<bean id="errorHandler" class="org.bancodispatcher.ErrorHandler" />
 	<bean id="legacyAdapter" class="org.bancodispatcher.LegacyAdapter" />
-
-	<int:outbound-channel-adapter ref="legacyAdapter"
-		channel="legacyChannel" method="process" />
-
-
-<!-- 	<int:outbound-channel-adapter ref="webServiceAdapter" -->
-<!-- 		channel="webServiceChannel" method="process" /> -->
-
-
 	<bean id="agreggatorBean" class="org.bancodispatcher.Agreggator" />
 	<bean id="messageStore"
 		class="org.springframework.integration.store.SimpleMessageStore" />
@@ -75,32 +45,49 @@
 			</list>
 		</property>
 	</bean>
-
-
-	<int:channel id="pruebaAgreggator" />
-	<int:channel id="pruebaWS" />
-
-	<int:aggregator id="agreggator" input-channel="webServiceChannel"
-		ref="agreggatorBean" method="process" release-strategy-expression="#this.size() > 9"
-		correlation-strategy-expression="payload.deviceType" message-store="messageStore"
-		output-channel="pruebaAgreggator" expire-groups-upon-completion="true" />
-
-
-	<int:transformer id="requestConverter" ref="xmlRequestBuilder"
-		input-channel="pruebaAgreggator" output-channel="pruebaWS" method="">
-	</int:transformer>
-
 	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
 		<property name="messageFactory">
 			<bean
 				class="com.sun.xml.messaging.saaj.soap.ver1_1.SOAPMessageFactory1_1Impl" />
 		</property>
 	</bean>
+	
+
+	<int:gateway id="inputGateway" error-channel="errorChannel"
+		service-interface="org.bancodispatcher.InputGateway">
+		<int:method name="process" request-channel="inputRouter" />
+	</int:gateway>
+
+	<int:service-activator input-channel="errorChannel" ref="errorHandler" method="handleFailed" />
+	
+
+	<int:recipient-list-router apply-sequence="true" input-channel="inputRouter">
+		<int:recipient channel="inputAgreggator" selector-expression="payload.deviceType.equals('POS')" />
+		<int:recipient channel="legacyChannel" selector-expression="payload.deviceType.equals('ATM')" />
+	</int:recipient-list-router>
+	
+
+	<int:outbound-channel-adapter ref="legacyAdapter" channel="legacyChannel" method="process" />
+	
+
+	<int:aggregator id="agreggator" input-channel="inputAgreggator"
+		ref="agreggatorBean" method="process" 
+		release-strategy-expression="#this.size() > 9"
+		correlation-strategy-expression="payload.deviceType" 
+		message-store="messageStore"
+		output-channel="inputTransformer" 
+		expire-groups-upon-completion="true" />
+
+
+	<int:transformer id="requestConverter" ref="xmlRequestBuilder" method="transformWS"
+		input-channel="inputTransformer" output-channel="inputWebService" >
+	</int:transformer>
+
 
 	<int-ws:outbound-gateway id="wsGateway"
-		request-channel="pruebaWS" reply-channel="log"
+		request-channel="inputWebService" reply-channel="wsOutputResponse"
 		uri="http://localhost:8080/BancoWS/Service" message-factory="messageFactory" />
 		
-	<int-stream:stdout-channel-adapter id="log" />
+	<int-stream:stdout-channel-adapter id="wsOutputResponse" />
 
 </beans>
