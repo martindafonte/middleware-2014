@@ -8,50 +8,104 @@
 
 <head>
 <title>ProducerWeb</title>
+
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+<script src="bootstrap/js/jquery.js"></script>
+<script src="bootstrap/js/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+
 </head>
 <body>
 
-	<h:form>
 
-		<h:panelGrid columns="2">
+	<form>
 
-			<h:outputLabel>Id</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.id}" />
+		<!-- Single button -->
+		<div class="btn-group">
+			<button type="button" data-toggle="dropdown"
+				class="btn btn-default dropdown-toggle">
+				Action <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><label for="inputId">Id</label></li>
+				<li><label for="inputId">Id</label></li>
+				<li class="divider"></li>
+				<li><label for="inputId">Id</label></li>
+			</ul>
+		</div>
 
-			<h:outputLabel>Date</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.date}" />
 
-			<h:outputLabel>Time</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.time}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1 class="panel-title">Ingrese los datos de la transacción:</h1>
+			</div>
+			<div class="panel-body">
+				<h:form>
 
-			<h:outputLabel>Type</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.type}" />
+					<h:panelGrid columns="1">
 
-			<h:outputLabel>Code</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.code}" />
+						<label for="inputId">Id</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.id}" />
 
-			<h:outputLabel>Commerce Name</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.commerceName}" />
+						<label for="inputDate">Date</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.date}" />
 
-			<h:outputLabel>Card Type</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.cardType}" />
+						<label for="inputTime">Time</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.time}" />
 
-			<h:outputLabel>Currency</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.currency}" />
+						<label for="inputType">Type</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.type}" />
 
-			<h:outputLabel>Device Type</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.deviceType}" />
+						<label for="inputCodel">Code</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.code}" />
 
-			<h:outputLabel>Amount</h:outputLabel>
-			<h:inputText value="#{transactionMB.input.amount}" />
+						<label for="inputCommerceName">Commerce Name</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.commerceName}" />
 
-		</h:panelGrid>
-		
-		<h:panelGroup styleClass="">
-			<h:commandButton value="enviar" action="#{transactionMB.sendTransaction()}" />
-		</h:panelGroup>
+						<label for="inputCardType">Card Type</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.cardType}" />
 
-	</h:form>
+						<label for="inputCurrency">Currency</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.currency}" />
+
+						<label for="inputDevice">Device Type</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.deviceType}" />
+
+						<label for="inputAmount">Amount</label>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.amount}" />
+
+					</h:panelGrid>
+
+					<div>
+						<h:panelGroup styleClass="">
+							<h:commandButton class="btn btn-outline btn-success"
+								value="enviar" action="#{transactionMB.sendTransaction()}" />
+						</h:panelGroup>
+
+					</div>
+
+
+
+				</h:form>
+
+			</div>
+		</div>
+
+	</form>
 
 </body>
 </html>
