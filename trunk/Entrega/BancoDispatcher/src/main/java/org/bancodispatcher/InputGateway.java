@@ -1,7 +1,6 @@
 package org.bancodispatcher;
 
-import org.sender.Transaction;
-
+import org.producerweb.Transaction;
 
 
 public interface InputGateway {

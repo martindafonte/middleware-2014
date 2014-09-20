@@ -9,7 +9,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
-import org.sender.Transaction;
+import org.producerweb.Transaction;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,6 +24,7 @@ public class Listener implements MessageListener {
 	}
 	
 	public void onMessage(Message message) {
+		
 		try {
 			ObjectMessage om = (ObjectMessage) message;
 			Object obj = om.getObject();
@@ -33,20 +34,21 @@ public class Listener implements MessageListener {
 			String tiempo;
 			String moneda;
 			String dispositivo;
-			SimpleDateFormat sdf = new SimpleDateFormat();
-			if ( /* fecha= */tran.getDate() != null) {
-				sdf.applyPattern("ddmmyy");
-				// sdf.parse(tran);
+			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+			if ( (fecha = tran.getDate() ) != null) {
+				sdf.parse(fecha);
 				if ((tiempo = tran.getTime()) != null) {
-					sdf.applyPattern("HHmmss");
+					sdf = new SimpleDateFormat("HHmmss");
 					sdf.parse(tiempo);
 					if (((tipo = tran.getType()) != null)
-							&& (tipo != "Débito" && tipo != "crédito" && tipo != "prepaga")) {
+							&& (tipo != "Débito" && tipo != "Crédito" && tipo != "Prepaga")) {
 						if (((moneda = tran.getCurrency()) != null)
 								&& (moneda != "UYU" && tipo != "USD")) {
 							if (((dispositivo = tran.getDeviceType()) != null)
-									&& (dispositivo != "POS"
-											&& dispositivo != "WEB" && dispositivo != "ATM")) {
+									&& (dispositivo != "POS" && 
+										dispositivo != "WEB" && 
+										dispositivo != "ATM")) {
+								
 								gateway.process(tran);
 								return;
 							}
@@ -59,8 +61,6 @@ public class Listener implements MessageListener {
 			e.printStackTrace();
 			//registrar error
 		} 
-//		catch (ParseException e) {
-//			//registrar error
-//		}
+
 	}
 }
