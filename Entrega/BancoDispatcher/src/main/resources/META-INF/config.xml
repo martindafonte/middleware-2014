@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
 	xmlns:int-router="http://www.springframework.org/schema/integration/"
 	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
@@ -62,8 +63,8 @@
 	
 
 	<int:recipient-list-router apply-sequence="true" input-channel="inputRouter">
-		<int:recipient channel="inputAgreggator" selector-expression="payload.deviceType.equals('POS')" />
-		<int:recipient channel="legacyChannel" selector-expression="payload.deviceType.equals('ATM')" />
+		<int:recipient channel="inputAgreggator" selector-expression="payload.deviceType == 'POS'" />
+		<int:recipient channel="legacyChannel"/>
 	</int:recipient-list-router>
 	
 
@@ -90,4 +91,5 @@
 		
 	<int-stream:stdout-channel-adapter id="wsOutputResponse" />
 
+	
 </beans>

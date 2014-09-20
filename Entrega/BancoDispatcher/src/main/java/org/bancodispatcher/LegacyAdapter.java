@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.sender.Transaction;
+import org.producerweb.Transaction;
 import org.springframework.beans.BeanUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -22,7 +22,7 @@ public class LegacyAdapter {
 	
 	@SuppressWarnings("unchecked")
 	public void process(Transaction m) throws Exception{
-			System.out.println("LLEGO AL LEGACY: " + m.getDeviceType().equals("ATM"));
+//			System.out.println("LLEGO AL LEGACY: " + m.getDeviceType());
 			SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
 			
 			//dataSource.setDriverClass((Class<Driver>)Class.forName("com.mysql.jdbc.Driver"));
@@ -36,7 +36,7 @@ public class LegacyAdapter {
 
 	        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-	        System.out.println("inserting");
+//	        System.out.println("inserting");
 //	        jdbcTemplate.execute("drop table customers if exists");
 //	        jdbcTemplate.execute("create table customers(" +
 //	                "id serial, first_name varchar(255), last_name varchar(255))");
@@ -56,7 +56,7 @@ public class LegacyAdapter {
 	    	
 	    	String fullDate=date+" "+time;
 	    		    	
-	    	java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy HHmmss");
+	    	java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat("ddMMyyyy HHmmss");
 	    	java.text.SimpleDateFormat sqlSDF=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    	java.util.Date newDate = sdf.parse(fullDate);
 	    	fullDate = sqlSDF.format(newDate);
@@ -69,10 +69,21 @@ public class LegacyAdapter {
 	    	
 	    	//String time = m.getTime();
 	    	String type = m.getType();
+	    	if(type == "Compra"){
+	    		type = "C";	    		
+	    	}else if(type == "Depósito"){
+	    		type = "D";	    		
+	    	}else{
+	    		type = "S"; 		
+	    	}	    	
+	    	
 	    	String code = m.getCode();
 	    	String commerceName= m.getCommerceName();
 	    	String cardNumber =m.getCardNumber();
+	    	
 	    	String cardType = m.getCardType();
+	    	cardType = cardType.substring(0,0);
+	    	
 	    	String currency = m.getCurrency();	    	
 	    	Double amount=m.getAmount();
 	    	
@@ -80,7 +91,7 @@ public class LegacyAdapter {
 	    	String query="insert into transactions (id,datetime,transaction_type,commerce_code,commerce_name,card_number,card_type,currency_code,amount) values ("
 	    				  + "'"+id+"'"+","+"'"+fullDate+"'"+","+"'"+type+"'"+","+"'"+code+"'"+","+"'"+commerceName+"'"+","+"'"+cardNumber+"'"+","+"'"+cardType+"'"+","+"'"+currency+"'"+","+"'"+amount+"'"+")";
 	    			
-	    	 System.out.println(query);		
+//	    	 System.out.println(query);		
 	        jdbcTemplate.update(query);	
 	     	
 	      

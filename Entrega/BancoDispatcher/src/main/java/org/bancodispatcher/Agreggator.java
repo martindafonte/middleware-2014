@@ -1,7 +1,8 @@
 package org.bancodispatcher;
 
 import java.util.List;
-import org.sender.Transaction;
+
+import org.producerweb.Transaction;
 
 public class Agreggator{ 
 
