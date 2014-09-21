@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <head>
 <title>ProducerWeb</title>
@@ -19,20 +18,8 @@
 <!-- <script src="bootstrap/js/bootstrap.js"></script> -->
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
-
-<script>
-	$(function() {
-		$(".datepicker").datepicker();
-	});
-</script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -40,7 +27,7 @@
 
 	<form>
 
-		<!--Primary buttons with dropdown menu-->
+        <!--Primary buttons with dropdown menu-->
 		<div class="btn-group">
 			<button type="button" data-toggle="dropdown"
 				class="btn btn-primary dropdown-toggle">
@@ -68,65 +55,51 @@
 						<h:inputText class="form-control"
 							value="#{transactionMB.input.id}" />
 
-						<!-- 						data-date-format="mm-dd-yyyy" -->
-
 						<label for="inputDate">Date</label>
-						<h:inputText styleClass="form-control datepicker" type="text"
-								value="#{transactionMB.input.date}" />
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.date}" />
 
 						<label for="inputTime">Time</label>
-						<h:selectOneMenu class="form-control" value="#{transactionMB.input.time}">
-							<f:selectItems value="#{sessionMB.times}"/>
-						</h:selectOneMenu>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.time}" />
 
 						<label for="inputType">Type</label>
-						<h:selectOneMenu class="form-control" value="#{transactionMB.input.type}">
-							<f:selectItem itemValue="Compra"/>
-							<f:selectItem itemValue="Depósito"/>
-							<f:selectItem itemValue="Consulta de saldo"/>
-						</h:selectOneMenu>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.type}" />
 
 						<label for="inputCodel">Code</label>
-						<h:inputText class="form-control" value="#{transactionMB.input.code}" />
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.code}" />
 
 						<label for="inputCommerceName">Commerce Name</label>
-						<h:inputText class="form-control" value="#{transactionMB.input.commerceName}" />
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.commerceName}" />
 
 						<label for="inputCardType">Card Type</label>
-						<h:selectOneMenu class="form-control" value="#{transactionMB.input.cardType}">
-							<f:selectItem itemValue="Débito"/>
-							<f:selectItem itemValue="Crédito"/>
-							<f:selectItem itemValue="Prepaga"/>
-						</h:selectOneMenu>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.cardType}" />
 
 						<label for="inputCurrency">Currency</label>
-						<h:selectOneMenu class="form-control" value="#{transactionMB.input.currency}">
-							<f:selectItem itemValue="UYU"/>
-							<f:selectItem itemValue="USD"/>
-						</h:selectOneMenu>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.currency}" />
 
 						<label for="inputDevice">Device Type</label>
-						<h:selectOneMenu class="form-control" value="#{transactionMB.input.deviceType}">
-							<f:selectItem itemValue="ATM"/>
-							<f:selectItem itemValue="POS"/>
-							<f:selectItem itemValue="WEB"/>
-						</h:selectOneMenu>
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.deviceType}" />
 
 						<label for="inputAmount">Amount</label>
-						<h:inputText class="form-control" value="#{transactionMB.input.amount}" />
+						<h:inputText class="form-control"
+							value="#{transactionMB.input.amount}" />
 
 					</h:panelGrid>
 
 					<div>
-						<h:panelGroup>
+						<h:panelGroup styleClass="">
 							<h:commandButton class="btn btn-outline btn-primary"
-								value="enviar" action="#{transactionMB.sendTransaction()}" />
+								value="enviar" action="#{transactionMB.sendTransactionError}" />
 						</h:panelGroup>
 
 					</div>
-
-
-
 				</h:form>
 
 			</div>
