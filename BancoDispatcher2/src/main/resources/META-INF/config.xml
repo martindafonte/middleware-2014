@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:int-router="http://www.springframework.org/schema/integration/"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/integration
+   http://www.springframework.org/schema/integration/spring-integration.xsd
+   http://www.springframework.org/schema/integration/twitter
+   http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+   http://www.springframework.org/schema/integration/stream
+   http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+  http://www.springframework.org/schema/jdbc 
+  http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+  http://www.springframework.org/schema/integration/jdbc 
+ http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+ http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/integration/ws
+ http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
+
+	<int:channel id="inputRouter" />
+	<int:channel id="legacyChannel" />
+	<int:channel id="errorChannel" />
+	<int:channel id="inputAgreggator" />
+	<int:channel id="inputTransformer" />
+	<int:channel id="inputWebService" />
+
+	<bean id="errorHandler" class="org.bancodispatcher.ErrorHandler" />
+	<bean id="legacyAdapter" class="org.bancodispatcher.LegacyAdapter" />
+	<bean id="agreggatorBean" class="org.bancodispatcher.Agreggator" />
+	<bean id="messageStore"
+		class="org.springframework.integration.store.SimpleMessageStore" />
+	<bean id="xmlRequestBuilder" class="org.bancodispatcher.XMLRequestBuilder" />
+	<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>org.sender.Transaction</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
+		<property name="messageFactory">
+			<bean
+				class="com.sun.xml.messaging.saaj.soap.ver1_1.SOAPMessageFactory1_1Impl" />
+		</property>
+	</bean>
+	
+
+	<int:gateway id="inputGateway" error-channel="errorChannel"
+		service-interface="org.bancodispatcher.InputGateway">
+		<int:method name="process" request-channel="inputRouter" />
+		<int:method name="processError" request-channel="errorChannel"/>
+	</int:gateway>
+
+	
+	
+
+	<int:recipient-list-router apply-sequence="true" input-channel="inputRouter">
+		<int:recipient channel="inputAgreggator" selector-expression="payload.deviceType == 'POS'" />
+		<int:recipient channel="legacyChannel"/>
+	</int:recipient-list-router>
+	
+
+	<int:outbound-channel-adapter ref="legacyAdapter" channel="legacyChannel" method="process" />
+	
+
+	<int:aggregator id="agreggator" input-channel="inputAgreggator"
+		ref="agreggatorBean" method="process" 
+		release-strategy-expression="#this.size() > 9"
+		correlation-strategy-expression="payload.deviceType" 
+		message-store="messageStore"
+		output-channel="inputTransformer" 
+		expire-groups-upon-completion="true" />
+
+
+	<int:transformer id="requestConverter" ref="xmlRequestBuilder" method="transformWS"
+		input-channel="inputTransformer" output-channel="inputWebService" >
+	</int:transformer>
+
+	<int-stream:stdout-channel-adapter id="wsOutputResponse" />
+	
+	
+
+	<int-ws:outbound-gateway id="wsGateway"
+		request-channel="inputWebService" reply-channel="wsOutputResponse"
+		uri="http://localhost:8080/BancoWS/Service" message-factory="messageFactory" />
+		
+	
+<!-- 	<int:service-activator input-channel="errorChannel" ref="errorHandler" method="handleFailed" /> -->
+	<int:logging-channel-adapter id="logger" channel="errorChannel" log-full-message="true" level="ERROR" />
+	
+</beans>
