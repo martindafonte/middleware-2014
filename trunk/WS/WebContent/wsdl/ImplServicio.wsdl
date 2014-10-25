@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.tutorial.gama.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.tutorial.gama.org" xmlns:intf="http://ws.tutorial.gama.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.tutorial.gama.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="returnAnything">
+    <complexType>
+     <sequence>
+      <element name="parm1" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="returnAnythingResponse">
+    <complexType>
+     <sequence>
+      <element name="returnAnythingReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="returnAnythingResponse">
+
+      <wsdl:part element="impl:returnAnythingResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="returnAnythingRequest">
+
+      <wsdl:part element="impl:returnAnything" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ImplServicio">
+
+      <wsdl:operation name="returnAnything">
+
+         <wsdl:input message="impl:returnAnythingRequest" name="returnAnythingRequest"/>
+
+         <wsdl:output message="impl:returnAnythingResponse" name="returnAnythingResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ImplServicioSoapBinding" type="impl:ImplServicio">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="returnAnything">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="returnAnythingRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="returnAnythingResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ImplServicioService">
+
+      <wsdl:port binding="impl:ImplServicioSoapBinding" name="ImplServicio">
+
+         <wsdlsoap:address location="http://localhost:8080/WS/services/ImplServicio"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
