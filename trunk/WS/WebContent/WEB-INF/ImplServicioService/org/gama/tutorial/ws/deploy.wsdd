@@ -7,7 +7,7 @@
       <parameter name="wsdlServiceElement" value="ImplServicioService"/>
       <parameter name="schemaQualified" value="http://ws.tutorial.gama.org"/>
       <parameter name="wsdlServicePort" value="ImplServicio"/>
-      <parameter name="className" value="org.gama.tutorial.ws.ImplServicio"/>
+      <parameter name="className" value="org.fing.mid2014.ImplServicio"/>
       <parameter name="wsdlPortType" value="ImplServicio"/>
       <parameter name="typeMappingVersion" value="1.2"/>
       <operation xmlns:operNS="http://ws.tutorial.gama.org" xmlns:retNS="http://ws.tutorial.gama.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="returnAnything" qname="operNS:returnAnything" returnQName="retNS:returnAnythingReturn" returnType="rtns:string" soapAction="">
