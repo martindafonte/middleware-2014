@@ -1,30 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="http://ws.tutorial.gama.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.tutorial.gama.org" xmlns:intf="http://ws.tutorial.gama.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<wsdl:definitions targetNamespace="http://mid2014.fing.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://mid2014.fing.org" xmlns:intf="http://mid2014.fing.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 <!--WSDL created by Apache Axis version: 1.4
 Built on Apr 22, 2006 (06:55:48 PDT)-->
  <wsdl:types>
-  <schema elementFormDefault="qualified" targetNamespace="http://ws.tutorial.gama.org" xmlns="http://www.w3.org/2001/XMLSchema">
+  <schema elementFormDefault="qualified" targetNamespace="http://mid2014.fing.org" xmlns="http://www.w3.org/2001/XMLSchema">
    <import namespace="http://xml.apache.org/xml-soap"/>
-   <element name="uploadImage">
-    <complexType>
-     <sequence>
-      <element name="data" type="impl:ImageData"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="ImageData">
-    <sequence>
-     <element name="imagen" nillable="true" type="xsd:base64Binary" />
-     <element name="name" nillable="true" type="xsd:string"/>
-    </sequence>
-   </complexType>
-   <element name="uploadImageResponse">
-    <complexType>
-     <sequence>
-      <element name="uploadImageReturn" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
    <element name="downloadImage">
     <complexType>
      <sequence>
@@ -36,6 +16,26 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <complexType>
      <sequence>
       <element name="downloadImageReturn" type="impl:ImageData"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ImageData">
+    <sequence>
+     <element name="imagen" nillable="true" type="apachesoap:Image"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="uploadImage">
+    <complexType>
+     <sequence>
+      <element name="data" type="impl:ImageData"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="uploadImageResponse">
+    <complexType>
+     <sequence>
+      <element name="uploadImageReturn" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>
@@ -68,14 +68,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:portType name="MTOMImpl">
 
-      <wsdl:operation name="uploadImage">
-
-         <wsdl:input message="impl:uploadImageRequest" name="uploadImageRequest"/>
-
-         <wsdl:output message="impl:uploadImageResponse" name="uploadImageResponse"/>
-
-      </wsdl:operation>
-
       <wsdl:operation name="downloadImage">
 
          <wsdl:input message="impl:downloadImageRequest" name="downloadImageRequest"/>
@@ -84,29 +76,19 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="uploadImage">
+
+         <wsdl:input message="impl:uploadImageRequest" name="uploadImageRequest"/>
+
+         <wsdl:output message="impl:uploadImageResponse" name="uploadImageResponse"/>
+
+      </wsdl:operation>
+
    </wsdl:portType>
 
    <wsdl:binding name="MTOMImplSoapBinding" type="impl:MTOMImpl">
 
       <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-
-      <wsdl:operation name="uploadImage">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="uploadImageRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="uploadImageResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
 
       <wsdl:operation name="downloadImage">
 
@@ -119,6 +101,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="downloadImageResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uploadImage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="uploadImageRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="uploadImageResponse">
 
             <wsdlsoap:body use="literal"/>
 

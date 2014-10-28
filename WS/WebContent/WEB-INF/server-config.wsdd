@@ -29,7 +29,7 @@
   <ns1:parameter name="allowedMethods" value="returnAnything"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
   <ns1:parameter name="wsdlPortType" value="ImplServicio"/>
-  <ns1:parameter name="className" value="org.gama.tutorial.ws.ImplServicio"/>
+  <ns1:parameter name="className" value="org.fing.mid2014.ImplServicio"/>
   <ns1:parameter name="wsdlServicePort" value="ImplServicio"/>
   <ns1:parameter name="schemaQualified" value="http://ws.tutorial.gama.org"/>
   <ns1:parameter name="wsdlTargetNamespace" value="http://ws.tutorial.gama.org"/>
