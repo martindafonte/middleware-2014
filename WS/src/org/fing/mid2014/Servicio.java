@@ -1,4 +1,4 @@
-package org.gama.tutorial.ws;
+package org.fing.mid2014;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;

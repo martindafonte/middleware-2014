@@ -1,9 +1,9 @@
-package org.gama.tutorial.ws;
+package org.fing.mid2014;
 
 import javax.jws.WebService;
 import javax.xml.ws.soap.Addressing;
 
-@WebService(portName="ServicioPort", serviceName="ServicioService", targetNamespace="http://ws.tutorial.gama.org", endpointInterface="org.gama.tutorial.ws.Servicio")
+@WebService(portName="ServicioPort", serviceName="ServicioService", targetNamespace="http://ws.tutorial.gama.org", endpointInterface="org.fing.mid2014.Servicio")
 @Addressing(enabled=true, required=true)
 public class ImplServicio implements Servicio {
 
