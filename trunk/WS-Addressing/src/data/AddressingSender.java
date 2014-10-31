@@ -13,7 +13,7 @@ public class AddressingSender implements AddressingSenderInterface{
 	@Override
 	@Action(
 	         input="http://ws-addressing/AddressingSender/returnString",
-	         output="http://ws-addressing/AddressingReceiver/recieveString")
+	         output="http://ws-addressing/AddressingReceiverInterface/recieveString")
 
 	public String returnString (String parm1){
 		System.out.println("AddressingSender: " + parm1);

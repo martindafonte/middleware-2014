@@ -3,7 +3,7 @@ package services;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-@WebService(name="AddressingReceiverInterface", targetNamespace="http://ws-addressing/")
+@WebService(name="AddressingReceiverInterface", targetNamespace="http://ws-addressing")
 public interface AddressingReceiverInterface {
 	
 	@WebMethod
