@@ -4,7 +4,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.xml.ws.Action;
 
-@WebService(name="AddressingSenderInterface", targetNamespace="http://ws-addressing")
+@WebService
 public interface AddressingSenderInterface {
 	
 	@WebMethod
