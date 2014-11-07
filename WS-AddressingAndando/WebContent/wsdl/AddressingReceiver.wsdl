@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.wsa" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://service.wsa" xmlns:intf="http://service.wsa" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://service.wsa" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="returnStringResponse">
+    <complexType>
+     <sequence>
+      <element name="parm1" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="returnStringResponseResponse">
+    <complexType/>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="returnStringResponseRequest">
+
+      <wsdl:part element="impl:returnStringResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="returnStringResponseResponse">
+
+      <wsdl:part element="impl:returnStringResponseResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="AddressingReceiver">
+
+      <wsdl:operation name="returnStringResponse">
+
+         <wsdl:input message="impl:returnStringResponseRequest" name="returnStringResponseRequest"/>
+
+         <wsdl:output message="impl:returnStringResponseResponse" name="returnStringResponseResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="AddressingReceiverSoapBinding" type="impl:AddressingReceiver">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="returnStringResponse">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="returnStringResponseRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="returnStringResponseResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="AddressingReceiverService">
+
+      <wsdl:port binding="impl:AddressingReceiverSoapBinding" name="AddressingReceiver">
+
+         <wsdlsoap:address location="http://localhost:8080/WS-Addressing/services/AddressingReceiver"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
