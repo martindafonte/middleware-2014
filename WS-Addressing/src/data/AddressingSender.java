@@ -6,7 +6,7 @@ import javax.xml.ws.soap.Addressing;
 
 import services.AddressingSenderInterface;
 
-@WebService(portName="AddressingSenderPort", serviceName="AddressingSender", endpointInterface="services.AddressingSenderInterface")
+@WebService(targetNamespace="http://test/", portName="AddressingSenderPort", serviceName="AddressingSender", endpointInterface="services.AddressingSenderInterface")
 @Addressing(enabled=true, required=true)
 public class AddressingSender implements AddressingSenderInterface{
 	
