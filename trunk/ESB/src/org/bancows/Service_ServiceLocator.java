@@ -8,7 +8,7 @@
 package org.bancows;
 
 public class Service_ServiceLocator extends org.apache.axis.client.Service implements org.bancows.Service_Service {
-
+public static String espacionombre = "http://bancows.org/v2";
     public Service_ServiceLocator() {
     }
 
@@ -105,7 +105,7 @@ public class Service_ServiceLocator extends org.apache.axis.client.Service imple
     }
 
     public javax.xml.namespace.QName getServiceName() {
-        return new javax.xml.namespace.QName("http://bancows.org/", "Service");
+        return new javax.xml.namespace.QName(espacionombre, "Service");
     }
 
     private java.util.HashSet ports = null;
@@ -113,7 +113,7 @@ public class Service_ServiceLocator extends org.apache.axis.client.Service imple
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
-            ports.add(new javax.xml.namespace.QName("http://bancows.org/", "ServicePort"));
+            ports.add(new javax.xml.namespace.QName(espacionombre, "ServicePort"));
         }
         return ports.iterator();
     }

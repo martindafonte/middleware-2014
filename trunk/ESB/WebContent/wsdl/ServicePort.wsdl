@@ -3,11 +3,11 @@
 xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" 
 xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" 
 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
-xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service" targetNamespace="http://bancows.org/">
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service" targetNamespace="http://bancows.org/v2">
 <!--
  Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2.8 svn-revision#13980. 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://bancows.org/" version="1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://bancows.org/v2" version="1.0">
 <xs:element name="Transaction" type="tns:transaction"/>
 <xs:element name="tns:receive" type="tns:receive"/>
 <xs:element name="tns:receiveResponse" type="tns:receiveResponse"/>

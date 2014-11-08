@@ -38,7 +38,7 @@
   <ns1:parameter name="wsdlPortType" value="Service"/>
   <ns1:parameter name="className" value="org.bancows.ServicePortBindingSkeleton"/>
   <ns1:parameter name="wsdlServicePort" value="ServicePort"/>
-  <ns1:parameter name="wsdlTargetNamespace" value="http://bancows.org/"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://bancows.org/vcampe"/>
   <ns1:parameter name="wsdlServiceElement" value="Service"/>
   <ns1:parameter name="schemaUnqualified" value="http://bancows.org/"/>
   <ns2:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns1:transaction" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:org.bancows.Transaction" xmlns:ns1="http://bancows.org/" xmlns:ns2="http://xml.apache.org/axis/wsdd/"/>
