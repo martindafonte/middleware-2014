@@ -66,7 +66,7 @@ public class ServicePortBindingStub extends org.apache.axis.client.Stub implemen
             java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
             java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
             java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
-            qName = new javax.xml.namespace.QName("http://bancows.org/v2", "transaction");
+            qName = new javax.xml.namespace.QName(Service_ServiceLocator.espacionombre, "transaction");
             cachedSerQNames.add(qName);
             cls = org.bancows.Transaction.class;
             cachedSerClasses.add(cls);
@@ -151,7 +151,7 @@ public class ServicePortBindingStub extends org.apache.axis.client.Stub implemen
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://bancows.org/", "receive"));
+        _call.setOperationName(new javax.xml.namespace.QName(Service_ServiceLocator.espacionombre, "receive"));
 
         setRequestHeaders(_call);
         setAttachments(_call);

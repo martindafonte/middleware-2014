@@ -35,7 +35,7 @@ public class ServicePortBindingSkeleton implements org.bancows.Service_PortType,
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "transaction"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://bancows.org/", "transaction"), org.bancows.Transaction[].class, false, false), 
         };
         _oper = new org.apache.axis.description.OperationDesc("receive", _params, null);
-        _oper.setElementQName(new javax.xml.namespace.QName("http://bancows.org/", "receive"));
+        _oper.setElementQName(new javax.xml.namespace.QName(Service_ServiceLocator.espacionombre, "receive"));
         _oper.setSoapAction("");
         _myOperationsList.add(_oper);
         if (_myOperations.get("receive") == null) {
