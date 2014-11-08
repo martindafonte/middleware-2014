@@ -1,0 +1,64 @@
+<definitions xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://bancows.org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" 
+targetNamespace="http://bancows.org/v2" name="Service">
+<documentation>
+Version 2.0
+</documentation>
+<xs:schema xmlns:tns="http://bancows.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://bancows.org/">
+<xs:element name="Transaction" type="tns:transaction"/>
+<xs:element name="receive" type="tns:receive"/>
+<xs:element name="receiveResponse" type="tns:receiveResponse"/>
+<xs:complexType name="receive">
+<xs:sequence>
+<xs:element name="id" type="xs:long" minOccurs="1" maxOccurs="1"/>
+<xs:element name="transaction" type="tns:transaction" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="transaction">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="date" type="xs:string"/>
+<xs:element name="time" type="xs:string"/>
+<xs:element name="type" type="xs:string"/>
+<xs:element name="code" type="xs:string"/>
+<xs:element name="commerceName" type="xs:string"/>
+<xs:element name="cardNumber" type="xs:string"/>
+<xs:element name="cardType" type="xs:string"/>
+<xs:element name="currency" type="xs:string"/>
+<xs:element name="deviceType" type="xs:string"/>
+<xs:element name="amount" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="receiveResponse">
+<xs:sequence/>
+</xs:complexType>
+</xs:schema>
+<message name="receive">
+<part name="parameters" element="tns:receive"/>
+</message>
+<message name="receiveResponse">
+<part name="parameters" element="tns:receiveResponse"/>
+</message>
+<portType name="Service">
+<operation name="receive">
+<input wsam:Action="http://bancows.org/Service/receiveRequest" message="tns:receive"/>
+<output wsam:Action="http://bancows.org/Service/receiveResponse" message="tns:receiveResponse"/>
+</operation>
+</portType>
+<binding name="ServicePortBinding" type="tns:Service">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="receive">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="Service">
+<port name="ServicePort" binding="tns:ServicePortBinding">
+<soap:address location="http://localhost:8080/BancoWS/Service"/>
+</port>
+</service>
+</definitions>
