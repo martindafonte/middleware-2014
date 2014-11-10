@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<head>
+<title>ProducerWeb</title>
+
+<!-- <link href="bootstrap/css/bootstrap.css" rel="stylesheet" /> -->
+
+<!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" /> -->
+
+<!-- <script src="bootstrap/js/jquery.js"></script> -->
+<!-- <script src="bootstrap/js/jquery.min.js"></script> -->
+<!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
+<!-- <script src="bootstrap/js/bootstrap.js"></script> -->
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+<script>
+	$(function() {
+		$(".datepicker").datepicker();
+	});
+</script>
+
+</head>
+<body>
+
+
+	<form>
+
+		<!--Primary buttons with dropdown menu-->
+		<div class="btn-group">
+			<button type="button" data-toggle="dropdown"
+				class="btn btn-primary dropdown-toggle">
+				Action <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a href="index.xhtml">Agregar Persona</a></li>
+				<li><a href="index2.xhtml">Editar Persona</a></li>
+				<li><a href="index3.xhtml">Obtener Persona</a></li>
+			</ul>
+		</div>
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1 class="panel-title">Editar Persona</h1>
+			</div>
+			<div class="panel-body">
+				<h:form>
+
+					<h:panelGrid columns="2">
+
+						<label>Id</label>
+						<h:inputText class="form-control" value="#{personalMB.id}" required="true"/>
+
+						<label>Nombre</label>
+						<h:inputText class="form-control" value="#{personalMB.nombre}" required="true"/>
+
+						<label>Apellido</label>
+						<h:inputText class="form-control" value="#{personalMB.apellido}" required="true"/>
+
+						<label for="inputDate">Fecha de Nacimiento (yyyy-mm-dd)</label>
+						<h:inputText styleClass="form-control" type="text" value="#{personalMB.fechaNacimiento}" required="true"/>
+								
+						<label>Genero</label>
+						<h:selectOneMenu class="form-control" value="#{personalMB.genero}" required="true">
+							<f:selectItem itemValue="M"/>
+							<f:selectItem itemValue="F"/>
+						</h:selectOneMenu>
+						
+						<label>Pais Documento</label>
+						<h:inputText styleClass="form-control" value="#{personalMB.paisDocumento}" maxlength="2" required="true"/>
+						
+						<label>Tipo Documento</label>
+						<h:inputText styleClass="form-control" value="#{personalMB.tipoDocumento}" maxlength="1" required="true"/>
+
+					</h:panelGrid>
+					
+					<div>
+						<h:messages/>
+					</div>
+
+					<div>
+						<h:panelGroup>
+							<h:commandButton class="btn btn-outline btn-primary"
+								value="agregar" action="#{personalMB.sendEdit()}" />
+							<h:commandButton class="btn btn-outline btn-primary" rendered="#{personalMB.id != null}"
+								value="borrar" action="#{personalMB.delete()}" />
+						</h:panelGroup>
+					</div>
+
+
+
+				</h:form>
+
+			</div>
+		</div>
+
+	</form>
+
+</body>
+</html>
